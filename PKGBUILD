@@ -1,4 +1,5 @@
-# Maintainer: Michael Corrigan <ghost.vonage AT gmail DOT com>
+# Maintainer: Brenton Horne <brentonhorne77 at gmail dot com>
+# Contributor: Michael Corrigan <ghost.vonage AT gmail DOT com>
 # Contributor: tomsik68	<tomsik68 AT gmail DOT com>
 # Contributor: gandl <gandlspam AT gmail DOT com>
 # Contributor: Jristz <prflr88 AT gmail DOT com>
@@ -30,8 +31,13 @@ else
   _arch="linux64"
 fi
 
+pkgver() {
+	cd $_pkgname
+	git describe --tags `git rev-list --tags --max-count=1` | sed 's/v//g'
+}
+
 build() {
-  cd $_pkgname-$pkgver
+  cd $_pkgname
   npm install
 
   gulp build:${_arch}
@@ -40,16 +46,16 @@ build() {
 package() {
 	install -D -m755 "${srcdir}/start.sh"	  "${pkgdir}/opt/MessengerForDesktop/start.sh"
 
-  cd "${srcdir}/$_pkgname-$pkgver/build/Messenger/${_arch}"
+  cd "${srcdir}/$_pkgname/build/Messenger/${_arch}"
   mkdir -p "${pkgdir}/opt/MessengerForDesktop/"
   install -D -m755 "Messenger"    "${pkgdir}/opt/MessengerForDesktop/Messenger"
   install -D -m644 "nw.pak"       "${pkgdir}/opt/MessengerForDesktop/nw.pak"
   install -D -m644 "icudtl.dat"   "${pkgdir}/opt/MessengerForDesktop/icudtl.dat"
   install -D -m644 "libffmpegsumo.so"   "${pkgdir}/opt/MessengerForDesktop/libffmpegsumo.so"
 
-  cd "${srcdir}/$_pkgname-$pkgver/assets-linux"
+  cd "${srcdir}/${_pkgname}/assets-linux"
 	sed -i '6s/.*/Exec=sh \/opt\/MessengerForDesktop\/start.sh/' messengerfordesktop.desktop
-  install -D -m644 "${srcdir}/$_pkgname-$pkgver/assets-linux/messengerfordesktop.desktop" "${pkgdir}/usr/share/applications/messengerfordesktop.desktop"
+  install -D -m644 "${srcdir}/${_pkgname}/assets-linux/messengerfordesktop.desktop" "${pkgdir}/usr/share/applications/messengerfordesktop.desktop"
   install -D -m644 "icons/256/messengerfordesktop.png"     "${pkgdir}/usr/share/pixmaps/messengerfordesktop.png"
-  install -Dm644 $srcdir/$_pkgname-$pkgver/LICENSE $pkgdir/usr/share/licenses/messengerfordesktop/LICENSE
+  install -Dm644 $srcdir/${_pkgname}/LICENSE $pkgdir/usr/share/licenses/messengerfordesktop/LICENSE
 }
