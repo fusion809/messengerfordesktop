@@ -1,6 +1,6 @@
 #!/bin/bash
 
-EXEC="/usr/local/bin/messengerfordesktop"
+EXEC="/usr/bin/messengerfordesktop"
 
 exec -a "$0" "$EXEC" $params &
 pid=$!
