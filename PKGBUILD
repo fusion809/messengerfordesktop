@@ -6,7 +6,7 @@
 
 pkgname=messengerfordesktop
 _pkgname=Facebook-Messenger-Desktop
-pkgver=1.4.7
+pkgver=1.4.8
 pkgrel=1
 pkgdesc="Beautiful desktop client for Facebook Messenger. Chat without being distracted by your feed or notifications."
 arch=('i686' 'x86_64')
@@ -17,9 +17,9 @@ depends=('cairo' 'libxtst' 'alsa-lib' 'gtk2' 'gconf' 'libnotify' 'fontconfig' 'n
 install=$pkgname.install
 depends=('gcc-libs' 'cairo' 'libxtst' 'alsa-lib' 'gtk2' 'gconf' 'libnotify' 'fontconfig' 'nss' 'xorg-xprop' 'xorg-xwininfo')
 makedepends=('git' 'gulp' 'npm')
-source=("https://github.com/Sytten/$_pkgname/archive/v$pkgver.tar.gz"
+source=("https://github.com/Aluxian/$_pkgname/archive/v$pkgver.tar.gz"
 				"start.sh")
-md5sums=('SKIP'
+md5sums=('516efad2f7ed74467401a7c7de49ee23'
          'ce686652299792c01f4605cf995c4d87')
 install="$pkgname.install"
 
